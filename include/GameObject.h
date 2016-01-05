@@ -10,13 +10,24 @@
 // GameObjectにデータを持たせて、
 // それをどのタイプにキャストするか判定する際に使用する
 typedef enum DataType {
-    PLAYER_BULLET,     
+    BULLET,     
     ENEMY,
+    EDIRECTIONAL_SHOOTER, // 方向団を撃つ敵
+    ESPIRAL_SHOOTER, // 渦巻弾を撃つ敵
 } DataType;
 
 typedef struct GameObject {
-    double x;
-    double y;
+    // 位置
+    float x;
+    float y;
+    //------------------------------
+    // 基本的に弾、敵にしか使わない
+    float angle; // 角度
+    float angle_rate; // 角速度
+    float speed;       // 速度
+    float speed_rate;  // 加速度
+    //------------------------------
+    bool alive; // falseなら削除される
     void* data; // それぞれrender等で使用する独自データ
     DataType type;
     // 毎フレーム呼ばれる
@@ -27,4 +38,8 @@ typedef struct GameObject {
 
 GameObject* GameObject_new();
 
+GameObject* GameObject_new_args(float x, float y, float angle, float angle_rate, 
+    float speed, float speed_rate, 
+    void(*render)(GameObject* g, double dt), 
+    void(*delete)(GameObject* g));
 #endif

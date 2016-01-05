@@ -13,6 +13,7 @@
 #include "GameObject.h"
 #include "Bullet.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "Input.h"
 #include "global.h"
 

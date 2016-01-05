@@ -36,9 +36,9 @@ void List_insert(List* list, Node* node) {
 }
 
 void List_remove(List* list, Node* node) {
-    // 先頭
+    // 先頭だったら次のnodeを先頭にする
     if(node->prev == NULL) {
-        list->head = node->next; 
+        list->head = node->next;
     }else {
         node->prev->next = node->next;
     }
@@ -47,6 +47,6 @@ void List_remove(List* list, Node* node) {
     if(node->next == NULL) {
         list->last = node->prev;
     }else{
-        node->prev = node->next->prev;
+        node->next->prev = node->prev;
     }
 }
