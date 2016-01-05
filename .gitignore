@@ -6,4 +6,5 @@ cmake_install.cmake
 install_manifest.txt
 
 alternas_s
+alternas_s.*
 .DS_Store

@@ -2,6 +2,7 @@
 
 int main(void)
 {
+    Game* g = NULL;
     int res = 0;
     ALLEGRO_DISPLAY *display = NULL;
     ALLEGRO_EVENT_QUEUE *event_queue = NULL;
@@ -54,7 +55,7 @@ int main(void)
 
     al_start_timer(timer);
 
-    Game* g = Game_new(display);
+    g = Game_new(display);
     g->start();
     double startTime = al_get_time();
     while(true)
@@ -82,6 +83,7 @@ int main(void)
 close:
     if(g != NULL){
         g->delete();
+        free(g);
     }
     if(timer != NULL)
         al_destroy_timer(timer);

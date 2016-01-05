@@ -1,7 +1,12 @@
 #include "alternas_s.h"
 
 Input* Input_new() {
-    return malloc(sizeof(Input));
+    Input* i = malloc(sizeof(Input));
+    i->up = false;
+    i->down = false;
+    i->left = false;
+    i->right = false;
+    return i;
 }
 
 void Input_update(Input* i, ALLEGRO_EVENT *ev) {

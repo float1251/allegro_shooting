@@ -16,7 +16,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 file(GLOB_RECURSE ALTERNAS_S_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99 -Wall -g")
 
 add_custom_target(run ./${PROJECT_NAME})
 

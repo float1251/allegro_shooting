@@ -37,20 +37,19 @@ void Game_render(double dt){
             g->render(g, dt);
             node = node->next;
         }
-        // node = goList->head;
-        // while(node != NULL){
-        //     GameObject* g = node->data;
-        //      if(!g->alive){
-        //         node = node->next;
-        //         Node* tmp = node;
-        //         List_remove(goList, tmp);
-        //         // g->delete(g);
-        //         Node_delete(tmp);
-        //      }else{
-        //         node = node->next;
-        //     }
-        //      
-        // }
+        while(node != NULL){
+            GameObject* g = node->data;
+             if(!g->alive){
+                node = node->next;
+                Node* tmp = node;
+                List_remove(goList, tmp);
+                g->delete(g);
+                Node_delete(tmp);
+             }else{
+                node = node->next;
+            }
+             
+        }
     }
     // Playerの描画
     player->render(player, dt);
@@ -91,10 +90,12 @@ void Game_delete() {
     if(goList != NULL) {
         Node* node = goList->head;
         while(node != NULL){
-            // TODO dataも削除する
             Node* tmp = node->next;
-            if(node->data != NULL)
-                ((GameObject*)node->data)->delete(node->data);
+            if(node->data != NULL) {
+                GameObject* g = node->data;
+                g->delete(g);
+                node->data = NULL;
+            }
             Node_delete(node);
             node = tmp;
         }
