@@ -25,7 +25,6 @@ void Bullet_render(struct GameObject* g, double dt) {
 void Bullet_delete(GameObject* g) {
     if(g == NULL) return;
     if(g->data != NULL) {
-        printf("test");
         free(g->data);
     }
     free(g);

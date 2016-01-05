@@ -34,21 +34,16 @@ void Game_render(double dt){
         Node* node = goList->head; 
         while(node != NULL){
             GameObject* g = node->data;
-            g->render(g, dt);
-            node = node->next;
-        }
-        while(node != NULL){
-            GameObject* g = node->data;
-             if(!g->alive){
-                node = node->next;
+            if(g!= NULL &&!g->alive){
                 Node* tmp = node;
+                node = node->next;
                 List_remove(goList, tmp);
                 g->delete(g);
                 Node_delete(tmp);
-             }else{
+            } else {
+                g->render(g, dt);
                 node = node->next;
             }
-             
         }
     }
     // Playerの描画
@@ -99,6 +94,5 @@ void Game_delete() {
             Node_delete(node);
             node = tmp;
         }
-
     }
 }
