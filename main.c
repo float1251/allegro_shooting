@@ -43,6 +43,12 @@ int main(void)
         goto close;
     }
 
+    if(!al_init_primitives_addon()){
+        fprintf(stderr, "failed to initialize primitves addon\n");
+        res = -1;
+        goto close;
+    }
+
     al_register_event_source(event_queue, al_get_display_event_source(display));
 
     al_register_event_source(event_queue, al_get_timer_event_source(timer));

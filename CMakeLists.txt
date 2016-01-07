@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.2)
 
 project(alternas_s)
 
@@ -25,3 +25,4 @@ add_executable(${PROJECT_NAME} main.c ${ALTERNAS_S_SRCS})
 target_link_libraries(${PROJECT_NAME} ${ALLEGRO5_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${ALLEGRO_MAIN_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${ALLEGRO_PRIMITIVES_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} m)
