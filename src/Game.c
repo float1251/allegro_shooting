@@ -18,7 +18,8 @@ void Game_start() {
 
     Node* node = Node_new();
     //GameObject* g = EDirectional_Shooter_new(-5, 0.1);
-    GameObject* g = ESpiral_Shooter_new(.5, 0.03, 5);
+    //GameObject* g = ESpiral_Shooter_new(.5, 0.03, 5);
+    GameObject* g = EMultiple_Spiral_Shooter_new(.5, 0.03, 5, 5);
     g->speed = 0;
     g->x = 800;
     g->y = SCREEN_H / 2;

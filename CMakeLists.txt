@@ -14,6 +14,8 @@ include_directories(${ALLEGRO_PRIMITIVES_INCLUDE_DIRS})
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+LINK_DIRECTORIES(/usr/local/lib)
+
 file(GLOB_RECURSE ALTERNAS_S_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99 -Wall -g")

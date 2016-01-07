@@ -14,6 +14,7 @@ typedef enum DataType {
     ENEMY,
     EDIRECTIONAL_SHOOTER, // 方向団を撃つ敵
     ESPIRAL_SHOOTER, // 渦巻弾を撃つ敵
+    EMULTIPLE_SPIRAL_SHOOTER, // 多方向渦巻弾を撃つ敵
 } DataType;
 
 typedef struct GameObject {
