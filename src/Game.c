@@ -14,6 +14,7 @@ void Game_start() {
     player->render = Player_render;
     // TODO 変える
     player->delete = Bullet_delete;
+    player->onCollide = Player_onCollide;
     goList = List_new();
 
     Node* node = Node_new();
@@ -25,7 +26,6 @@ void Game_start() {
     g->y = SCREEN_H / 2;
     node->data = g;
     List_insert(goList, node);
-
 }
 
 void Game_render(double dt){
@@ -49,6 +49,17 @@ void Game_render(double dt){
     }
     // Playerの描画
     player->render(player, dt);
+
+    // // Playerと敵弾との衝突判定
+    Node* node = goList->head;
+    while(node != NULL) {
+        if(isCollide(player, node->data)) {
+            player->onCollide(player, node->data);
+            ((GameObject*)node->data)->onCollide(node->data, player);
+        }
+        node = node->next;
+    }
+
     // 自機から弾を発射する
     if(al_get_timer_count(timer) % 10 == 0) {
         //Node* node = Node_new();
@@ -78,6 +89,9 @@ void Game_render(double dt){
     //     List_insert(goList, node);
     // }
     // TODO 敵から弾を発射させる
+    // Scoreの表示
+    al_draw_textf(font, al_map_rgb(255, 255, 255), 20, 0, ALLEGRO_ALIGN_LEFT, "Score: %f", al_get_time());
+    
 }
 
 void Game_delete() {

@@ -29,3 +29,8 @@ void Bullet_delete(GameObject* g) {
     }
     free(g);
 }
+
+
+void Bullet_onCollide(GameObject* self, GameObject* other) {
+    self->alive = false;
+}

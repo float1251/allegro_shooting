@@ -1,5 +1,10 @@
 #include "alternas_s.h"
 
+int print_error(char* msg) {
+    fprintf(stderr, "%s", msg);
+    return -1;
+}
+
 int main(void)
 {
     Game* g = NULL;
@@ -11,43 +16,50 @@ int main(void)
     input = Input_new();
 
     if(!al_init()) {
-        fprintf(stderr, "failed to initialize allegro!\n");
-        res = -1;
+        res = print_error("failed to initialize allegro!\n");
         goto close;
     }
 
     if(!al_install_keyboard()) {
-        fprintf(stderr, "failed to initialize the keyboard!\n");
-        res = -1;
+        res = print_error("failed to initialize the keyboard!\n");
         goto close;
     }
 
     timer = al_create_timer(1.0 / FPS);
     if(!timer) {
-        fprintf(stderr, "failed to create timer!\n");
-        res = -1;
+        res = print_error("failed to create timer!\n");
         goto close;
     }
 
     display = al_create_display(SCREEN_W, SCREEN_H);
     if(!display) {
-        fprintf(stderr, "failed to create display!\n");
-        res = -1;
+        res = print_error("failed to create display!\n");
         goto close;
     }
 
     event_queue = al_create_event_queue();
     if(!event_queue) {
-        fprintf(stderr, "failed to create event_queue!\n");
-        res = -1;
+        res = print_error("failed to create event_queue!\n");
         goto close;
     }
 
     if(!al_init_primitives_addon()){
-        fprintf(stderr, "failed to initialize primitves addon\n");
-        res = -1;
+        res = print_error("failed to initialize primitves addon\n");
         goto close;
     }
+
+    if(!al_init_font_addon()){
+        res = print_error("failed to initialize font addon\n");
+        goto close;
+    }
+
+    if(!al_init_ttf_addon()){
+        res = print_error("failed to initialize ttf addon\n");
+        goto close;
+    }
+
+    //font = al_create_builtin_font();
+    font = al_load_ttf_font("data/DejaVuSans.ttf", 40, ALLEGRO_TTF_MONOCHROME);
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
 
@@ -97,5 +109,8 @@ close:
         al_destroy_display(display);
     if(event_queue != NULL)
         al_destroy_event_queue(event_queue);
+    if(font != NULL){
+        al_destroy_font(font);
+    }
     return res;
 }

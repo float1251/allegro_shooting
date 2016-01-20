@@ -46,7 +46,7 @@ void List_remove(List* list, Node* node) {
     // 最後
     if(node->next == NULL) {
         list->last = node->prev;
-    }else{
+    } else {
         node->next->prev = node->prev;
     }
 }

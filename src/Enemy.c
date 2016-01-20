@@ -11,12 +11,13 @@ GameObject* EDirectional_Shooter_new(float speed, float angle) {
     g->data = d; 
     g->render = EDirectinal_Shooter_render;
     g->delete = EDirectinal_Shooter_delete;
+    g->onCollide = Bullet_onCollide;
     return g;
 }
 
 void EDirectinal_Shooter_render(GameObject* g, double dt) {
     DicrectionalShooterData *d = g->data;
-    GameObject* b = GameObject_new_args(g->x, g->y, d->angle, 0, d->speed, 0, Bullet_render, Bullet_delete);
+    GameObject* b = GameObject_new_args(g->x, g->y, d->angle, 0, d->speed, 0, Bullet_render, Bullet_delete, Bullet_onCollide);
     Node* node = Node_new();
     node->data = b;
     List_insert(goList, node);
@@ -43,13 +44,14 @@ GameObject* ESpiral_Shooter_new(float shot_angle, float shot_angle_rate, float s
     g->data = d; 
     g->render = ESpiral_Shooter_render;
     g->delete = ESpiral_Shooter_delete;
+    g->onCollide = Bullet_onCollide;
     return g;
 }
 
 void ESpiral_Shooter_render(GameObject* g, double dt) {
     if(al_get_timer_count(timer) %10 == 0){
         SpiralShooterData* d = g->data; 
-        GameObject* b = GameObject_new_args(g->x, g->y, d->shot_angle, 0, d->shot_speed, 0.002, Bullet_render, Bullet_delete);
+        GameObject* b = GameObject_new_args(g->x, g->y, d->shot_angle, 0, d->shot_speed, 0.002, Bullet_render, Bullet_delete, Bullet_onCollide);
         Node* node = Node_new();
         node->data = b;
         List_insert(goList, node);
@@ -85,6 +87,7 @@ GameObject* EMultiple_Spiral_Shooter_new(float shot_angle, float shot_angle_rate
     g->data = d; 
     g->render = EMultiple_Spiral_Shooter_render;
     g->delete = EMultiple_Spiral_Shooter_delete;
+    g->onCollide = Bullet_onCollide;
     return g;
 }
 
@@ -95,7 +98,7 @@ void EMultiple_Spiral_Shooter_render(GameObject* g, double dt) {
         MultipleSpiralShooterData* d = g->data;
         for(int i=0; i< d->shot_count; i++) {
             GameObject* b = GameObject_new_args(g->x, g->y, d->shot_angle+(float)i/d->shot_count,
-                0, d->shot_speed, 0.002, Bullet_render, Bullet_delete);
+                0, d->shot_speed, 0.002, Bullet_render, Bullet_delete, Bullet_onCollide);
             Node* node = Node_new();
             node->data = b;
             List_insert(goList, node);

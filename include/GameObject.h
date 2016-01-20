@@ -30,11 +30,13 @@ typedef struct GameObject {
     //------------------------------
     bool alive; // falseなら削除される
     void* data; // それぞれrender等で使用する独自データ
+    float r; // コライダーの半径
     DataType type;
     // 毎フレーム呼ばれる
     void(*render)(struct GameObject* g, double dt);
     // 削除時
     void(*delete)(struct GameObject* p);
+    void(*onCollide)(struct GameObject* self, struct GameObject *other);
 } GameObject;
 
 GameObject* GameObject_new();
@@ -42,5 +44,9 @@ GameObject* GameObject_new();
 GameObject* GameObject_new_args(float x, float y, float angle, float angle_rate, 
     float speed, float speed_rate, 
     void(*render)(GameObject* g, double dt), 
-    void(*delete)(GameObject* g));
+    void(*delete)(GameObject* g),
+    void(*onCollide)(GameObject* self, GameObject* other)
+    );
+
+bool isCollide(GameObject *g1, GameObject *g2);
 #endif

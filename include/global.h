@@ -9,5 +9,6 @@ extern Input* input;
 extern GameObject* player;
 extern List* goList;
 extern ALLEGRO_TIMER *timer;
+extern ALLEGRO_FONT *font;
 
 #endif
